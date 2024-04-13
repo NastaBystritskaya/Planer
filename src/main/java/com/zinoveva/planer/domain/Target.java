@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public class Target {
     /**
      * дата начала цели
      */
-    Date startDate;
+    Date startDate = new Date();
 
     /**
      * дата окончания цели
@@ -45,12 +46,12 @@ public class Target {
      * список задач
      */
     @OneToMany
-    List<Task> tasks;
+    List<Task> tasks = new LinkedList<>();
 
     /**
      * статус цели
      */
-    Status status;
+    Status status = Status.create;
 
     /**
      * планер, в котором хранится цель

@@ -6,13 +6,14 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Entity
-@Getter
-@Setter
 /**
  * Задача
  */
+@Entity
+@Getter
+@Setter
 public class Task {
+
     /**
      * id
      */
@@ -33,7 +34,7 @@ public class Task {
     /**
      * дата начала задачи
      */
-    Date startDate;
+    Date startDate = new Date();
 
     /**
      * дата окончания задачи
@@ -43,7 +44,7 @@ public class Task {
     /**
      * статус задачи
      */
-    Status status;
+    Status status = Status.create;
 
     /**
      * цель, которая хранит задачу

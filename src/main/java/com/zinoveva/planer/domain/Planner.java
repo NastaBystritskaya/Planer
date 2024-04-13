@@ -7,19 +7,29 @@ import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Планер
+ */
 @Entity
 @Getter
 @Setter
 public class Planner {
 
+    /**
+     * id планера
+     */
     @Id
     @GeneratedValue
     Long id;
 
+    /**
+     * список целей планера
+     */
     @OneToMany
-    List<Target> listTarget;
+    List<Target> listTarget = new LinkedList<>();
 
 
 
