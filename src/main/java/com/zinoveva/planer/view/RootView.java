@@ -66,6 +66,10 @@ public class RootView extends VerticalLayout {
         this.drawTarget();
         this.add(targetInfo);
         this.drawTaskGrid();
+        this.createTaskButton.addClickListener(event -> {
+            CreateTaskDialog dialog = new CreateTaskDialog();
+            dialog.open();
+        });
         this.add(createTaskButton);
     }
 
@@ -75,6 +79,10 @@ public class RootView extends VerticalLayout {
     private void drawTarget() {
         this.targetWrapper.setWidth("100%");
         this.targetWrapper.setAlignItems(Alignment.END);
+        this.targetCreateButton.addClickListener(event -> {
+            CreateTargetDialog dialog = new CreateTargetDialog();
+            dialog.open();
+        });
         this.targetWrapper.add(this.targetComboBox, this.targetCreateButton, this.targetDeleteButton);
         this.add(targetWrapper);
     }
@@ -90,3 +98,4 @@ public class RootView extends VerticalLayout {
         this.add(taskGrid);
     }
 }
+
