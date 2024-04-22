@@ -8,6 +8,7 @@ import com.zinoveva.planer.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class TaskService {
      * Создает или обновляет задачу в базе данных
      * @param task сохраненная задача
      */
-    public void createTask(Task task) {
-        this.taskRepository.save(task);
+    public Task createTask(Task task) {
+        return this.taskRepository.save(task);
     }
 
     /**
@@ -59,7 +60,7 @@ public class TaskService {
      */
     public void closeTask(Task task) {
         task.setStatus(Status.close);
-        task.setEndDate(new Date());
+        task.setEndDate(LocalDate.now());
         this.createTask(task);
     }
 

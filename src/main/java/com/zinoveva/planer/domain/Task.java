@@ -1,9 +1,13 @@
 package com.zinoveva.planer.domain;
 
+import com.zinoveva.planer.service.converters.StatusConverter;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,6 +16,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Task {
 
     /**
@@ -34,16 +39,17 @@ public class Task {
     /**
      * дата начала задачи
      */
-    Date startDate = new Date();
+    LocalDate startDate = LocalDate.now();
 
     /**
      * дата окончания задачи
      */
-    Date endDate;
+    LocalDate endDate;
 
     /**
      * статус задачи
      */
+    @Convert(converter = StatusConverter.class)
     Status status = Status.create;
 
     /**

@@ -1,14 +1,15 @@
 package com.zinoveva.planer.service;
 
-import com.zinoveva.planer.domain.Planner;
 import com.zinoveva.planer.domain.Status;
 import com.zinoveva.planer.domain.Target;
 import com.zinoveva.planer.domain.Task;
-import com.zinoveva.planer.repositories.PlannerRepository;
 import com.zinoveva.planer.repositories.TargetRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -16,16 +17,21 @@ import java.util.List;
  * Сервис Цели
  */
 @Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TargetService {
-    @Autowired
+
+    /**
+     * Репозиторий задач
+     */
     TargetRepository targetRepository;
 
     /**
      * Создает или обновляет цель в базе данных
      * @param target сохраненная цель
      */
-    public void createTarget(Target target) {
-        this.targetRepository.save(target);
+    public Target createTarget(Target target) {
+        return this.targetRepository.save(target);
     }
 
     /**
@@ -33,7 +39,7 @@ public class TargetService {
      * @return список целей из базы данных
      */
     public List<Target> getAll() {
-        return this.targetRepository.findAll();
+        return this.targetRepository.findByStatusNot(Status.close);
     }
 
     /**
@@ -88,7 +94,7 @@ public class TargetService {
             throw new RuntimeException("В цели есть незакрытые задачи");
         }
         target.setStatus(Status.close);
-        target.setEndDate(new Date());
+        target.setEndDate(LocalDate.now());
     }
 
     /**

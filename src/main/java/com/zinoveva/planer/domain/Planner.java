@@ -1,9 +1,6 @@
 package com.zinoveva.planer.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,11 +23,14 @@ public class Planner {
     Long id;
 
     /**
+     * Имя планнера
+     */
+    String name;
+
+    /**
      * список целей планера
      */
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     List<Target> listTarget = new LinkedList<>();
-
-
 
 }

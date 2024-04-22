@@ -1,9 +1,14 @@
 package com.zinoveva.planer.domain;
 
+import com.zinoveva.planer.service.converters.StatusConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DialectOverride;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,22 +40,23 @@ public class Target {
     /**
      * дата начала цели
      */
-    Date startDate = new Date();
+    LocalDate startDate = LocalDate.now();
 
     /**
      * дата окончания цели
      */
-    Date endDate;
+    LocalDate endDate;
 
     /**
      * список задач
      */
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     List<Task> tasks = new LinkedList<>();
 
     /**
      * статус цели
      */
+    @Convert(converter = StatusConverter.class)
     Status status = Status.create;
 
     /**
@@ -59,4 +65,13 @@ public class Target {
     @ManyToOne
     @JoinColumn(name = "planer_id")
     Planner planner;
+
+    /**
+     * Строчное представление
+     * @return Представление
+     */
+    @Override
+    public String toString() {
+        return "[" + this.endDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")) + "] " + this.getName();
+    }
 }
